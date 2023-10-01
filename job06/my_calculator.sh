@@ -1,31 +1,24 @@
 #!/bin/bash
 
+# Vérifier si des arguments sont fournis
 if [ $# -ne 3 ]; then
-    echo "Usage: $0 <nombre1> <opération> <nombre2>"
+    echo "Utilisation : $0 <nombre1> <opération> <nombre2>"
     exit 1
 fi
 
-nombre1=$1
+# Extraire les arguments
+num1=$1
 operation=$2
-nombre2=$3
+num2=$3
 
+# Effectuer l'opération en fonction du symbole
 case $operation in
-    +)
-        resultat=$(($nombre1 + $nombre2))
-        ;;
-    -)
-        resultat=$(($nombre1 - $nombre2))
-        ;;
-    x)
-        resultat=$(($nombre1 * $nombre2))
-        ;;
-    ÷)
-        resultat=$(($nombre1 / $nombre2))
-        ;;
-    *)
-        echo "Opération invalide. Utilisez l'un des symboles: + - x ÷"
-        exit 1
-        ;;
+    +) result=$(echo "scale=10; $num1 + $num2" | bc) ;;
+    -) result=$(echo "scale=10; $num1 - $num2" | bc) ;;
+    \*) result=$(echo "scale=10; $num1 * $num2" | bc) ;;
+    /) result=$(echo "scale=10; $num1 / $num2" | bc) ;;
+    *) echo "Opération invalide. Utilisez +, -, *, /." && exit 1 ;;
 esac
 
-echo "Le résultat de $nombre1 $operation $nombre2 est : $resultat"
+# Afficher le résultat
+echo "Résultat : $result"
