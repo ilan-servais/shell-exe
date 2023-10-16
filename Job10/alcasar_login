@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Vérification des arguments
+if [ $# -ne 2 ]; then
+    echo "Utilisation : $0 <email> <mot_de_passe>"
+    exit 1
+fi
+
+# Variables
+URL="https://alcasar.laplateforme.io/status.php"
+EMAIL=$1
+PASSWORD=$2
+
+# Effectuer la requête POST pour la connexion
+response=$(curl -s -X POST -d "email=$EMAIL&password=$PASSWORD" $URL)
+
+# Vérifier la réponse
+if [[ $response == *"Connexion réussie"* ]]; then
+    echo "Connexion réussie!"
+else
+    echo "La connexion a échoué. Vérifiez vos informations d'identification."
+fi
